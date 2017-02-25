@@ -64,6 +64,11 @@ namespace BuildChromium
 
                 throw new NotImplementedException();
             }
+            catch (BuilderException ex)
+            {
+                Log.Write(LogLevel.FatalError, ex.Message);
+                Environment.Exit(1);
+            }
             catch (Exception ex)
             {
                 Log.Write(LogLevel.FatalError, "Unhandled {0} was thrown: {1}", ex.GetType().Name, ex.Message);
