@@ -13,6 +13,8 @@ namespace MSBuild.ResGen
         public ITaskItem[] ResxFiles { get; set; }
         [Required]
         public string OutputPath { get; set; }
+        [Required]
+        public string RootNamespace { get; set; }
         [Output]
         public ITaskItem[] OutputFiles { get; set; }
 
@@ -23,7 +25,7 @@ namespace MSBuild.ResGen
             foreach (var taskItem in ResxFiles)
             {
                 string baseName = taskItem.GetMetadata("FileName");
-                string csCode = GetStronglyTypeCsFileForResx(taskItem.GetMetadata("FullPath"), "", baseName);
+                string csCode = GetStronglyTypeCsFileForResx(taskItem.GetMetadata("FullPath"), "", RootNamespace + "." + baseName);
 
                 string outputPath = Path.Combine(OutputPath, baseName + ".cs");
                 File.WriteAllText(outputPath, csCode);
@@ -60,7 +62,7 @@ namespace MSBuild.ResGen
                 entries.AppendFormat(ENTRY, name, value);
             }
 
-            string bodyCode = string.Format(BODY, shortClassName, moduleName, entries.ToString(), className);
+            string bodyCode = string.Format(BODY, shortClassName, moduleName, entries.ToString(), className, (string.IsNullOrEmpty(moduleName) ? "" : "."));
             if (namespaceName != null)
             {
                 bodyCode = string.Format(NAMESPACE, namespaceName, bodyCode);
@@ -117,7 +119,7 @@ internal class {0} {{
     internal static global::System.Resources.ResourceManager ResourceManager {{
         get {{
             if (object.ReferenceEquals(resourceMan, null)) {{
-                global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(""{1}.resources.{3}"", typeof({0}).GetTypeInfo().Assembly);
+                global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(""{1}{4}{3}.resources"", typeof({0}).GetTypeInfo().Assembly);
                 resourceMan = temp;
             }}
             return resourceMan;
