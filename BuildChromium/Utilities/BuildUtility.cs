@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text.RegularExpressions;
+using BuildChromium.Logging;
 
 namespace BuildChromium.Utilities
 {
@@ -29,6 +31,20 @@ namespace BuildChromium.Utilities
             using (StreamWriter writer = new StreamWriter(stream))
             {
                 writer.Write(source);
+            }
+        }
+
+        public static void DownloadFile(Uri uri, FileInfo file, bool forceDownload = false)
+        {
+            if (forceDownload || !file.Exists)
+            {
+                Log.Write(LogLevel.Informational, "Downloading {0}...", file.FullName);
+                WebClient client = new WebClient();
+                client.DownloadFile(uri.AbsoluteUri, file.FullName);
+            }
+            else
+            {
+                Log.Write(LogLevel.Informational, "{0} already exists. Skipping download.", file.FullName);
             }
         }
     }
