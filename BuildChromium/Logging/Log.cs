@@ -13,7 +13,7 @@ namespace BuildChromium.Logging
             foreach (var writer in Writers)
             {
                 if (level > writer.MinimumLevel) continue;
-                writer.Write(string.Format(format, args));
+                writer.Write(level, string.Format(format, args));
             }
         }
     }
