@@ -10,7 +10,7 @@ namespace BuildChromium.Logging
         private StreamWriter writer;
         public FileLogger(FileInfo file)
         {
-            Stream stream = file.Open(FileMode.Create);
+            Stream stream = file.Open(FileMode.Append);
             writer = new StreamWriter(stream);
         }
 
