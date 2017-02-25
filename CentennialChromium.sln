@@ -9,14 +9,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSBuild.ResGen", "MSBuild.ResGen\MSBuild.ResGen.csproj", "{722A8B67-C2D5-4CB7-8794-A7F8EBEFA404}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Net.WebClient", "System.Net.WebClient\System.Net.WebClient.csproj", "{3B8BD0D1-1E29-4CEE-829B-4133C8B0A652}"
-	ProjectSection(ProjectDependencies) = postProject
-		{722A8B67-C2D5-4CB7-8794-A7F8EBEFA404} = {722A8B67-C2D5-4CB7-8794-A7F8EBEFA404}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.CommandLine", "System.CommandLine\System.CommandLine.csproj", "{4162142E-4466-4F9C-99BD-5A98EBF9DAA2}"
-	ProjectSection(ProjectDependencies) = postProject
-		{722A8B67-C2D5-4CB7-8794-A7F8EBEFA404} = {722A8B67-C2D5-4CB7-8794-A7F8EBEFA404}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
