@@ -29,6 +29,7 @@ namespace BuildChromium.Logging
             line = line.Replace("{message}", message);
 
             writer.WriteLine(line);
+            writer.Flush();
         }
     }
 }
