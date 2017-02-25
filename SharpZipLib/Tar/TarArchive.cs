@@ -474,19 +474,6 @@ namespace ICSharpCode.SharpZipLib.Tar
 			}
 		}
 
-        public void EnumerateContents(Action<TarEntry> action)
-        {
-            if (isDisposed) throw new ObjectDisposedException(nameof(TarArchive));
-
-            while (true)
-            {
-                TarEntry entry = tarIn.GetNextEntry();
-                if (entry == null) break;
-
-                action?.Invoke(entry);
-            }
-        }
-
 		/// <summary>
 		/// Perform the "extract" command and extract the contents of the archive.
 		/// </summary>
