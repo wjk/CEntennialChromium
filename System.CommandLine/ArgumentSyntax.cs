@@ -87,6 +87,7 @@ namespace System.CommandLine
         {
             return Parser.GetUnreadOptionNames()
                          .Any(a => string.Equals(a, @"-?", StringComparison.Ordinal) ||
+                                   string.Equals(a, @"/?", StringComparison.Ordinal) ||
                                    string.Equals(a, @"-h", StringComparison.Ordinal) ||
                                    string.Equals(a, @"--help", StringComparison.Ordinal));
         }
