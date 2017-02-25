@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../SharpZipLib/SharpZipLib.csproj" />
+    <ProjectReference Include="../System.CommandLine/System.CommandLine.csproj" />
     <ProjectReference Include="../System.Net.WebClient/System.Net.WebClient.csproj" />
   </ItemGroup>
 </Project>
