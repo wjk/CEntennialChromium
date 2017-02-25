@@ -4,7 +4,7 @@ namespace BuildChromium.Logging
 {
     public sealed class ConsoleLogger : ILogWriter
     {
-        public string LogFormat { get; set; } = "{time} - {level}: {message}";
+        public string LogFormat { get; set; } = "{level}: {message}";
 
         public LogLevel MinimumLevel { get; set; } = LogLevel.Verbose;
 
