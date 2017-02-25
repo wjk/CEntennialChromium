@@ -61,15 +61,14 @@ namespace BuildChromium
 
                     Log.AddLogger(new FileLogger(new FileInfo(path)));
                 }
+
+                throw new NotImplementedException();
             }
             catch (Exception ex)
             {
                 Log.Write(LogLevel.FatalError, "Unhandled {0} was thrown: {1}", ex.GetType().Name, ex.Message);
                 Environment.Exit(1);
             }
-
-
-            Console.WriteLine("Hello World!");
         }
     }
 }
