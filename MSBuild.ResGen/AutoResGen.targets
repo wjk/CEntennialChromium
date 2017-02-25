@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <AutoResGenAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory)bin/BuildTasks/netcoreapp1.1/MSBuild.ResGen.dll</AutoResGenAssembly>
+    <AutoResGenAssembly Condition="'$(MSBuildRuntimeType)' != 'Core'">$(MSBuildThisFileDirectory)bin/BuildTasks/net46/MSBuild.ResGen.dll</AutoResGenAssembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="AutoResGen" AssemblyFile="$(AutoResGenAssembly)" />
+  <Target Name="AutoResGen" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <_ResxFile Include="@(EmbeddedResource)" Condition="'%(Extension)' == '.resx'" />
+    </ItemGroup>
+
+    <AutoResGen ResxFiles="@(_ResxFile)" OutputPath="$(IntermediateOutputPath)">
+      <Output TaskParameter="OutputFiles" ItemName="Compile" />
+    </AutoResGen>
+  </Target>
+</Project>
