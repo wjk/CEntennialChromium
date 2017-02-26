@@ -28,7 +28,7 @@ namespace BuildChromium.Utilities
             return new FileInfo(fullPath);
         }
 
-        public static DirectoryInfo GetSubdirectory(this DirectoryInfo parent, string path)
+        public static DirectoryInfo SafeCreateSubdirectory(this DirectoryInfo parent, string path)
         {
             string subdirPath = Path.Combine(parent.FullName, path);
             if (Directory.Exists(subdirPath)) return new DirectoryInfo(subdirPath);
