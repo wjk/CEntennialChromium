@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using BuildChromium.Logging;
 
@@ -9,6 +10,12 @@ namespace BuildChromium.Utilities
 {
     public static class BuildUtility
     {
+        private static class NativeMethods
+        {
+            [DllImport("libc", CharSet = CharSet.Ansi)]
+            public static extern int chmod(string path, int mode);
+        }
+
         public static void PerformSubstitution(IEnumerable<FileInfo> files, List<Tuple<Regex,string>> replacements)
         {
             foreach (var file in files) PerformSubstitution(file, replacements);
@@ -46,6 +53,18 @@ namespace BuildChromium.Utilities
             {
                 Log.Write(LogLevel.Verbose, "{0} already exists. Skipping download.", file.FullName);
             }
+        }
+
+        public static bool Chmod(FileInfo file, int new_mode)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Log.Write(LogLevel.Debug, "Ignoring chmod on Windows, as the concept does not apply there");
+                return true;
+            }
+
+            int res = NativeMethods.chmod(file.FullName, new_mode);
+            return res == 0;
         }
     }
 }
