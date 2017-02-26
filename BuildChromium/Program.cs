@@ -12,11 +12,12 @@ namespace BuildChromium
     {
         static void Main(string[] args)
         {
-            Log.AddLogger(new ConsoleLogger());
+            ConsoleLogger consoleLogger = new ConsoleLogger();
+            Log.AddLogger(consoleLogger);
 
             try
             {
-                bool build64Bit = false;
+                bool build64Bit = false, verboseOutput = false;
                 string patchSetPath = null, sandboxDirectory = null;
                 IReadOnlyList<string> patchSetsToApply = Array.Empty<string>();
                 IReadOnlyList<string> logFiles = Array.Empty<string>();
@@ -28,22 +29,27 @@ namespace BuildChromium
                     syntax.ApplicationName = "BuildChromium";
 
                     syntax.DefineCommand("prepare");
+                    syntax.DefineOption("v|verbose", ref verboseOutput, "Print verbose and debug messags to console");
                     syntax.DefineOptionList("logfile", ref logFiles, "Write status messages to this file");
                     syntax.DefineParameter("sandbox-directory", ref sandboxDirectory, "The directory to clone Chromium into");
 
                     syntax.DefineCommand("patch");
+                    syntax.DefineOption("v|verbose", ref verboseOutput, "Print verbose and debug messags to console");
                     syntax.DefineOptionList("logfile", ref logFiles, "Write status messages to this file");
                     syntax.DefineOption("patchset-dir", ref patchSetPath, "Directory containing the patchset files");
                     syntax.DefineOptionList("p|apply-patchset", ref patchSetsToApply, "Apply these patchsets");
                     syntax.DefineParameter("sandbox-directory", ref sandboxDirectory, "The directory to clone Chromium into");
 
                     syntax.DefineCommand("build");
+                    syntax.DefineOption("v|verbose", ref verboseOutput, "Print verbose and debug messags to console");
                     syntax.DefineOptionList("logfile", ref logFiles, "Write status messages to this file");
                     syntax.DefineOption("patchset-dir", ref patchSetPath, "Directory containing the patchset files");
                     syntax.DefineOptionList("p|apply-patchset", ref patchSetsToApply, "Apply these patchsets");
                     syntax.DefineOption("x64", ref build64Bit, "Build a 64-bit binary");
                     syntax.DefineParameter("sandbox-directory", ref sandboxDirectory, "The directory to clone Chromium into");
                 });
+
+                if (!verboseOutput) consoleLogger.MinimumLevel = LogLevel.Informational;
 
                 foreach (string path in logFiles)
                 {
