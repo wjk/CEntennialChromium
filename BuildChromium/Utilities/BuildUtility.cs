@@ -44,7 +44,7 @@ namespace BuildChromium.Utilities
             }
             else
             {
-                Log.Write(LogLevel.Informational, "{0} already exists. Skipping download.", file.FullName);
+                Log.Write(LogLevel.Verbose, "{0} already exists. Skipping download.", file.FullName);
             }
         }
     }
