@@ -12,7 +12,7 @@ namespace BuildChromium.Utilities
     {
         private static class NativeMethods
         {
-            [DllImport("libc", CharSet = CharSet.Ansi)]
+            [DllImport("libc", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
             public static extern int chmod(string path, int mode);
         }
 
